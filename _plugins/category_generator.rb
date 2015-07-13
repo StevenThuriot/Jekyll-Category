@@ -6,8 +6,8 @@ module Jekyll
     def initialize(site, base, category, slug, posts, index, pageCount)
       @site = site
       @base = base
-        @dir  = File.join((site.config['category_dir'] || 'categories'), slug)
-      @name = 'index.html'      
+      @dir  = File.join((site.config['category_dir'] || 'categories'), slug)
+      @name = 'index.html'    
         
       if index != 0          
           path = site.config['paginate_path']
@@ -117,9 +117,11 @@ module Jekyll
                         gsub(/^\-|\-$/i, '').
                         # Downcase
                         downcase
+            
+            posts = posts.reverse
               
             self.write_category_feed(category, slug, posts)  
-            
+                          
             if self.config['paginate']
                 slicedPosts = posts.each_slice(5).to_a             
                 slicedPosts.each_with_index do |slice, i|
